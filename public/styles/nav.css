@@ -25,6 +25,9 @@ nav {
   }
   
   .nav-right i {
-    color: #FF5733; /* color match reference */
+    color: #FF5733;
+    font-size: 1.2em;
+    margin-top: 5px;  /* creates a bit of space under the text */
+    display: inline-block;
   }
   

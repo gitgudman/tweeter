@@ -22,6 +22,11 @@ body {
   padding-top: 120px;
 }
 
+main {
+  width: 90%;
+  margin: 0 auto; /* center align horizontally */
+  background-color: cornsilk; /* match body background */
+}
 
 
 
