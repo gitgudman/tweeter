@@ -1,0 +1,23 @@
+header {
+    width: 100%;
+    background-color: #f7a440;
+    background-image: url("https://www.transparenttextures.com/patterns/french-stucco.png");
+    background-repeat: repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+  }
+  
+  header img {
+    width: 140px;
+    height: auto;
+  }
+  
+  header h2 {
+    font-weight: 600;
+    font-size: 1.5em;
+    color: #fff;
+  }
+  
