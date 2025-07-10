@@ -67,7 +67,27 @@ const createTweetElement = function(tweet) {
   return $tweet;
 };
 
-// Call it to render hardcoded tweets
+// Call it to render demo hardcoded tweets
 $(document).ready(function() {
   renderTweets(data);
+});
+
+$(document).ready(function () {
+  $('form').on('submit', function (event) {
+    event.preventDefault();
+
+    const serializedData = $(this).serialize();
+
+    // Optional debug output
+    console.log('Serialized tweet data:', serializedData);
+
+    $.post('/api/tweets', serializedData)
+      .done(() => {
+        console.log('Tweet successfully submitted via AJAX!');
+        // Call renderTweets() later here after fetching new ones
+      })
+      .fail((err) => {
+        console.error('Tweet submission failed:', err);
+      });
+  });
 });
