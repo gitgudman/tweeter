@@ -1,6 +1,6 @@
 header {
     width: 100%;
-    background-color: #f7a440;
+    background-color: #4083f7;
     background-image: url("https://www.transparenttextures.com/patterns/french-stucco.png");
     background-repeat: repeat;
     display: flex;
@@ -8,6 +8,7 @@ header {
     align-items: center;
     justify-content: center;
     height: 400px;
+    color: #fff
   }
   
   header img {
@@ -20,5 +21,12 @@ header {
     font-size: 1.5em;
     color: #fff;
     margin-top: 20px;
+  }
+  
+  .profile-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
   
