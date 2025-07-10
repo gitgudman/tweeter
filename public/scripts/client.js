@@ -4,30 +4,30 @@
  * Reminder: Use (and do all your DOM work in) jQuery's document ready function
  */
 
-const data = [
-  {
-    user: {
-      name: "Newton",
-      avatars: "https://i.imgur.com/73hZDYK.png",
-      handle: "@SirIsaac"
-    },
-    content: {
-      text: "If I have seen further it is by standing on the shoulders of giants"
-    },
-    created_at: 1461116232227
-  },
-  {
-    user: {
-      name: "Descartes",
-      avatars: "https://i.imgur.com/nlhLi3I.png",
-      handle: "@rd"
-    },
-    content: {
-      text: "Je pense , donc je suis"
-    },
-    created_at: 1461113959088
-  }
-];
+// const data = [
+//   {
+//     user: {
+//       name: "Newton",
+//       avatars: "https://i.imgur.com/73hZDYK.png",
+//       handle: "@SirIsaac"
+//     },
+//     content: {
+//       text: "If I have seen further it is by standing on the shoulders of giants"
+//     },
+//     created_at: 1461116232227
+//   },
+//   {
+//     user: {
+//       name: "Descartes",
+//       avatars: "https://i.imgur.com/nlhLi3I.png",
+//       handle: "@rd"
+//     },
+//     content: {
+//       text: "Je pense , donc je suis"
+//     },
+//     created_at: 1461113959088
+//   }
+// ];
 
 // This function loops through the array of tweets and appends them to the container
 const renderTweets = function(tweets) {
@@ -68,26 +68,46 @@ const createTweetElement = function(tweet) {
 };
 
 // Call it to render demo hardcoded tweets
-$(document).ready(function() {
-  renderTweets(data);
-});
+// $(document).ready(function() {
+//   renderTweets(data);
+// });
 
 $(document).ready(function () {
-  $('form').on('submit', function (event) {
+  const loadTweets = function () {
+    $.ajax({
+      url: '/api/tweets', // this uses the correct relative path; do not use full URL
+      method: 'GET',
+      dataType: 'json',
+      success: function(tweets) {
+        renderTweets(tweets); // this function already exists from the previous step
+      },
+      error: function(err) {
+        console.error("Error fetching tweets:", err);
+      }
+    });
+  };
+
+  // Instantly fetch tweets when page loads
+  loadTweets();
+
+  $('form').on('submit', function(event) {
     event.preventDefault();
-
-    const serializedData = $(this).serialize();
-
-    // Optional debug output
-    console.log('Serialized tweet data:', serializedData);
-
+    const $form = $(this);
+    const serializedData = $form.serialize();
+  
     $.post('/api/tweets', serializedData)
       .done(() => {
         console.log('Tweet successfully submitted via AJAX!');
-        // Call renderTweets() later here after fetching new ones
+  
+        // Clear the textarea and reset counter
+        $form.find('textarea').val('');
+        $form.find('.counter').val(140);
+  
+        // Fetch the tweets again to show the new one
+        loadTweets();
       })
       .fail((err) => {
-        console.error('Tweet submission failed:', err);
+        console.log('Tweet submission failed:', err);
       });
   });
 });
