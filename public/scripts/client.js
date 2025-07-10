@@ -93,13 +93,26 @@ $(document).ready(function () {
   $('form').on('submit', function(event) {
     event.preventDefault();
     const $form = $(this);
+
+    const tweetText = $form.find('textarea[name="text"]').val().trim();
+
+    // Validation
+    if (!tweetText) {
+        alert("🚫 Tweet cannot be empty!");
+        return; // stop the form from being submitted
+    }
+
+    if (tweetText.length > 140) {
+        alert("🚫 Tweet is too long! Maximum is 140 characters.");
+        return;
+    }
+
+    // If validation passes
     const serializedData = $form.serialize();
   
     $.post('/api/tweets', serializedData)
       .done(() => {
         console.log('Tweet successfully submitted via AJAX!');
-  
-        // Clear the textarea and reset counter
         $form.find('textarea').val('');
         $form.find('.counter').val(140);
   
