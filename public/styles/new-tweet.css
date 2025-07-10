@@ -54,3 +54,7 @@
     color: #4b4b4b; /* match the reference gray tone */  
   }
   
+  .counter.over-limit {
+    color: red;
+  }
+  
